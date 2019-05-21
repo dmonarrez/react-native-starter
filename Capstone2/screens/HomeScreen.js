@@ -1,12 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 
+
 export default class HomeScreen extends React.Component {
-  static navigationOptions = {
-    headerStyle: {
-      backgroundColor: 'blue'
-    }
-  };
+  
   render() {
     return (
       <View style={styles.container}>
@@ -14,10 +11,10 @@ export default class HomeScreen extends React.Component {
           <Text>Premier Pump and Power Action Request</Text>
         </View>
         <View style={styles.buttonContianer}>
-          <TouchableOpacity style={styles.button} onPress={( => this.props.navigation.navigate('TicketScreen'))}>
+          <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Ticket')}>
             <Text>Create A Ticket</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('List')}>
             <Text>View Action Requests</Text>
           </TouchableOpacity>
         </View>

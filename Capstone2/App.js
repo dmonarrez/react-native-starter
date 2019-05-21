@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
-import { createStackNavigator, createAppContainer, createDrawerNavigator, createSwitchNavigator } from 'react-navigation';
+
+import { createStackNavigator, createAppContainer, createDrawerNavigator } from 'react-navigation';
 
 import HomeScreen from './screens/HomeScreen';
 import TicketScreen from './screens/TicketScreen';
@@ -15,25 +16,21 @@ export default class App extends React.Component {
   }
 }
 
-const AppSwitchNavigator = createSwitchNavigator({
-  Ticket: {screen: TicketScreen},
-  List: {screen: ListScreen}
-})
+//Navigation
 
 const AppNavigator = createStackNavigator({
   Home: {screen: HomeScreen},
+  Ticket: {screen: TicketScreen},
+  List: {screen: ListScreen},
 },
 {
-  defaultNavigationOptions: {
-    headerStyle: {
-      backgroundColor: 'orange'
-    }
-  }
+  initialRoutName: 'Home'
 });
 
 const AppDrawerNavigator = createDrawerNavigator({
   Home: {screen: HomeScreen},
-  Ticket: {screen: TicketScreen}
+  Ticket: {screen: TicketScreen},
+  List: {screen: ListScreen}
 },
 {
   defaultNavigationOptions: {
@@ -44,6 +41,10 @@ const AppDrawerNavigator = createDrawerNavigator({
 });
 
 const AppContainer = createAppContainer(AppDrawerNavigator);
+
+
+
+//styles
 
 const styles = StyleSheet.create({
   container: {
