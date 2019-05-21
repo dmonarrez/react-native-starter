@@ -7,8 +7,8 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.header}>
-          <Text>Premier Pump and Power Action Request</Text>
+        <View style={styles.headerContainer}>
+          <Text style={styles.header}>Premier Pump and Power Action Request</Text>
         </View>
         <View style={styles.buttonContianer}>
           <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Ticket')}>
@@ -38,5 +38,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 10,
     margin: 10,
+  },
+  header: {
+    fontSize: 20
   }
 });
