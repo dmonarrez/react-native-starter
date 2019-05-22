@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity, TextInput, Image, ScrollView } from 'react-native';
+import { ImagePicker, Permissions } from 'expo';
 
 export default class TicketScreen extends React.Component {
   constructor(props) {
@@ -8,11 +9,31 @@ export default class TicketScreen extends React.Component {
       name: '',
       issue: '',
       suggested: '',
-      
+      image: null
     };
   }
   
-  render() {  
+  selectPicture = async () => {
+    await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    const { cancelled, uri } = await ImagePicker.launchImageLibraryAsync({
+      aspect: 1,
+      allowsEditing: true,
+    });
+    if (!cancelled) { 
+      this.setState({ image: uri }) 
+    }
+    console.log(this.state.image);
+  };
+  
+  takePicture = async () => {
+    await Permissions.askAsync(Permissions.CAMERA);
+    const { cancelled, uri } = await ImagePicker.launchCameraAsync({
+      allowsEditing: false,
+    });
+    this.setState({ image: uri });
+  };
+  
+  render() {      
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
@@ -34,6 +55,7 @@ export default class TicketScreen extends React.Component {
               style={styles.input}
               placeholder='Enter issue explination'
               multiline={true}
+              blurOnSubmit={true}
               onChangeText={ (issue) => this.setState({issue}) }
               value={this.state.issue}
             />
@@ -44,15 +66,29 @@ export default class TicketScreen extends React.Component {
               style={styles.input}
               placeholder='Enter issue explination'
               multiline={true}
+              blurOnSubmit={true}
               onChangeText={ (suggested) => this.setState({suggested}) }
               value={this.state.suggested}
             />
+          </View>
+          <View style={styles.imageContainer}>
+            <Image style={styles.image} />
+            <View style={{flexDirection: 'row'}}>
+              <TouchableOpacity style={styles.button} onPress={this.selectPicture}>
+                <Text>Gallery</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.button} onPress={this.takePicture}>
+                <Text>Camera</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </View>
     );
   }
 }
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -80,5 +116,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 10,
     margin: 10,
+  },
+  image: {
+    width: 300,
+    height: 300,
+    backgroundColor: 'gray',
+  },
+  imageContainer: {
+    marginTop: 15,
+    alignItems: 'center',
   }
 });
