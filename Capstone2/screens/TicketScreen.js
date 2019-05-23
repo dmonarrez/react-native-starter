@@ -9,7 +9,7 @@ export default class TicketScreen extends React.Component {
       name: '',
       issue: '',
       suggested: '',
-      image: null
+      image: 'placeholder',
     };
   }
   
@@ -72,7 +72,7 @@ export default class TicketScreen extends React.Component {
             />
           </View>
           <View style={styles.imageContainer}>
-            <Image style={styles.image} />
+            <Image style={styles.image} source={{ uri: this.state.image}} />
             <View style={{flexDirection: 'row'}}>
               <TouchableOpacity style={styles.button} onPress={this.selectPicture}>
                 <Text>Gallery</Text>
